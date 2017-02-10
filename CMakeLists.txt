@@ -3,11 +3,19 @@ cmake_minimum_required( VERSION 3.0 )
 project( app CXX C )
 
 include( ExternalProject )
-ExternalProject_Add( THING
-  URL ${CMAKE_CURRENT_SOURCE_DIR}/external/thing
-  PREFIX ${CMAKE_CURRENT_BINARY_DIR}/tmp/thing
-  INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/thing
+ExternalProject_Add(THING
+  SOURCE_DIR ${CMAKE_SOURCE_DIR}/external/thing
+  INSTALL_DIR ${CMAKE_BINARY_DIR}/external/thing
+  DOWNLOAD_COMMAND ""
+  UPDATE_COMMAND ""
+  CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/external/thing"
+    #    -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS} 
+    #    -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS} 
+    #    -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+    #    ${USE_PROJECT_CMAKE_MODULE_PATH}
+    #INSTALL_COMMAND ""
   )
+
 ExternalProject_Get_Property( THING install_dir )
 
 add_library( thing STATIC IMPORTED )
